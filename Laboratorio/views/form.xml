@@ -76,7 +76,7 @@
                       ventimp.close();
                     }
                 </script>
-                <field name="image" widget="html" readonly="1" invisible="0"/>
+                <field name="image" widget="html" readonly="1" invisible="1"/>
                 
 
             </div>
