@@ -10,81 +10,83 @@
         <field name="model">lomed.formoptica</field>
         <field name="arch" type="xml">
          <form string="LOMED laboratorio optico">   
-poner un selector, que el parent o_form_sheet
+
             <div id="prueba">
                 <script language="Javascript">
-
-                  var clientes;
-                    var referencia = {};
-                    var nombres = {};
-                    $ (". o_input"). on ("presionar tecla", función (e) {
-                        / * ENTRAR PRESIONADO * /
+                
+                    var clientes;
+                    var referencia={};
+                    var nombres={};
+                    $(".o_input").on("keypress", function(e) {
+                        /* ENTER PRESSED*/
                         if (e.keyCode == 13) {
-                            / * ELEMENTO DE ENFOQUE * /
-                            entradas var = $ (". o_form_sheet"). find (". o_input");
-                            var idx = inputs.index (esto);
+                            /* FOCUS ELEMENT */
+                            var inputs = $(".o_form_sheet").find(".o_input");
+                            var idx = inputs.index(this);
     
                             if (idx == inputs.length - 1) {
-                                entradas [0] .select ()
-                            } más {
-                                entradas [idx + 1] .focus (); // maneja los botones de envío
+                                inputs[0].select()
+                            } else {
+                                inputs[idx + 1].focus(); //  handles submit buttons
                                
                             }
-                            falso retorno;
+                            return false;
                         }
                     });
     
 
-                    $ (documento) .ready (función () {
-                        $ .ajax ({url: "/ select / clientes", éxito: función (resultado) {
-                           // alerta (resultado)
-                            clientes = JSON.parse (resultado)
-                           $ .each (clientes.collection, function (i, item) {
-                            referencia [item.code] = item.nombre
-                            nombres [item.code] = item.id
+                    $( document ).ready(function() {
+                        $.ajax({url: "/select/clientes", success: function(result){
+                           //alert(result)
+                            clientes=JSON.parse(result)
+                           $.each(clientes.collection, function(i, item) {
+                            referencia[item.code]= item.nombre
+                            nombres[item.code]= item.id
                         
                         });
                             }
                         });
 
-                        $ ("input [name = 'ref']"). keyup (function (event) { 
+                        $("input[name='ref']").keyup(function(event) { 
                             if (event.keyCode == 13) {
-                                / * ELEMENTO DE ENFOQUE * /
-                                entradas var = $ (". o_form_sheet"). find (". o_input");
-                                var idx = inputs.index (esto);
+                                /* FOCUS ELEMENT */
+                                var inputs = $(".o_form_sheet").find(".o_input");
+                                var idx = inputs.index(this);
         
                                 if (idx == inputs.length - 1) {
-                                    entradas [0] .select ()
-                                } más {
-                                    entradas [idx + 1] .focus (); // maneja los botones de envío
+                                    inputs[0].select()
+                                } else {
+                                    inputs[idx + 1].focus(); //  handles submit buttons
                                    
                                 }
-                                falso retorno;
+                                return false;
                             }
-                            x = $ ("input [nombre = 'ref']"). val ();
-                            y = referencia [x];
-                            z = nombres [x]
-                            tratar  
+                            x= $("input[name='ref']").val();
+                            y = referencia[x];
+                            z= nombres[x]
+                            try  
                             {
-                                // alerta (x);
+                                //alert(x);
                            
-                            $ ("input [name = 'optica']"). val (y); 
-                            $ ("input [name = 'optica_id']"). val (z);   
+                            $("input[name='optica']").val(y); 
+                            $("input[name='optica_id']").val(z);   
                             }
-                            captura (error)
+                            catch(error)
                             {
                             }
                         });
                             
                     });
 
-                     función imprSelec (prueba) {
-                      var ficha = document.getElementById (prueba);
-                      var ventimp = window.open ('', 'popimpr');
-                      ventimp.document.write (ficha.innerHTML);
-                      ventimp.document.close ();
-                      ventimp.print ();
-                      ventimp.close ();
+             
+
+                    function imprSelec(prueba) {
+                      var ficha = document.getElementById(prueba);
+                      var ventimp = window.open(' ', 'popimpr');
+                      ventimp.document.write( ficha.innerHTML );
+                      ventimp.document.close();
+                      ventimp.print( );
+                      ventimp.close();
                     }
                 </script>
                 <field name="image" widget="html" readonly="1" invisible="1"/>
