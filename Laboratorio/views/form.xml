@@ -100,19 +100,21 @@
         <button name="aprobado" states="Borrador" string="Procesar" type="object" class="oe_highlight" onclick="javascript:imprSelec('prueba')"/>
         </header> 
         <sheet>      
-
+<group>
         <group name="form" >    
         <field name="ref"/>
         <field name="optica"/>
       
         <field name="name"  />
+    </group>
+        <group>
         <field name="tipo_id"  />
        
         <field name="material_id" domain="[['tipo_id','=', tipo_id]]"/>
         <field name="color_id" domain="[['material_id','=', material_id]]" />
         <field name="lente_id" domain="[['color_id','=', color_id]]"/>
         </group>    
-       
+</group>       
              
              
         <group name="odid" >        
@@ -133,11 +135,15 @@
           
             </group >   
             <group>
+            <group>
             <field name="policar" />
             <field name="cr_49" />
             <field name="anti" />
+        </group>
+        <group>
             <field name="clase" />
             <field name="base" />
+        </group>
             </group >
     
         <group >    
@@ -157,17 +163,21 @@
         </group>
 
             <group>  
+                <group>
             <field name="aro"/>
             <field name="medida"/>
             <field name="examino"/>
             <field name="asesor"/>
             <field name="fecha_entrega"/>
             <field name="color2"/>
+        </group>
+        <group>
             <field name="a"/>
             <field name="a"/>
             <field name="c"/>
             <field name="d"/>
-            <field name="observaciones"/>    
+            <field name="observaciones"/>  
+        </group>  
             </group>
             <field name="optica_id" invisible="1"/>
             <field name="state" invisible="1" />
