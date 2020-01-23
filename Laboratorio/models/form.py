@@ -181,9 +181,10 @@ class Formlomed(models.Model):
                 dic['observaciones']=r.observaciones 
                 trabajo= self.env['sale.order'].create(dic)
                 line = self.env['sale.order.line'].create({'name': compra.des, 'order_id': trabajo.id,'price_unit': compra.producto_id.list_price,'product_id':compra.producto_id.id}) 
+                trabajo.action_confirm()
                 
             model_obj = self.env['ir.model.data']
-            data_id = model_obj._get_id('Laboratorio_optico','lomed_form_1')
+            data_id = model_obj._get_id('Laboratorio','lomed_form_1')
             view_id = model_obj.browse(data_id).res_id
             return {
                 'type': 'ir.actions.act_window',
