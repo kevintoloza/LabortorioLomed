@@ -12,7 +12,7 @@
     "author": "Strategi-k",
     "website": "http://strategi-k.com",
     "version": '12.0.0.4',
-    "depends": ['stock','purchase','hr','hr_contract','sale_management','account_asset','optica_sv'
+    "depends": ['stock','purchase','hr','hr_contract','fleet','project','sale_management','account_asset','survey','maintenance','website','website_form'
           ],
     
     "data": [

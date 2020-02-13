@@ -11,9 +11,11 @@ class Formlomed(models.Model):
     optica = fields.Char(string="Óptica")
     optica_id = fields.Integer()
     optica_copia = fields.Char(string="Optica copia")
-    date = fields.Date(string="Fecha")
-    ref = fields.Char(string="Referencia")
-    #OD
+    #date = fields.Char(string="Fecha")
+    date1 = fields.Char(string="Fecha")
+    #ref1 = fields.Char(string="#Orden")
+    ref = fields.Char(string="#Orden")
+    #OD  
     od_esfera = fields.Float(string="OD.Esfera")
     od_cilindro = fields.Float(string="OD.Cilindro")
     od_eje = fields.Float(string="OD.Eje")
@@ -66,8 +68,14 @@ class Formlomed(models.Model):
     image = fields.Text(compute='calculo')
     barcode = fields.Char()
     variable = fields.Char(string="variable")
-    
-     
+    activate = fields.Boolean()
+    tipo_trabaajo = fields.Selection(selection=[('Requisicion', 'Requisicion')
+                                    ,('Reclamo', 'Reclamo')
+                                    ,('Montaje','Montaje')
+                                    ,('Tallado','Tallado')
+                                    ,('Mat Propio','Mat Propio')
+                                    ,('Otros','Otros')]
+                                    , string='Tipo de trabajo ',store=True)  
    
     @api.one
     @api.depends('partner_id','name')
@@ -181,10 +189,9 @@ class Formlomed(models.Model):
                 dic['observaciones']=r.observaciones 
                 trabajo= self.env['sale.order'].create(dic)
                 line = self.env['sale.order.line'].create({'name': compra.des, 'order_id': trabajo.id,'price_unit': compra.producto_id.list_price,'product_id':compra.producto_id.id}) 
-                trabajo.action_confirm()
                 
             model_obj = self.env['ir.model.data']
-            data_id = model_obj._get_id('Laboratorio','lomed_form_1')
+            data_id = model_obj._get_id('Laboratorio_optico','lomed_form_1')
             view_id = model_obj.browse(data_id).res_id
             return {
                 'type': 'ir.actions.act_window',
@@ -225,5 +232,4 @@ class Formlomed(models.Model):
         lente_id = fields.Many2one(string="Lente", comodel_name='lomed.opticalentenom')
         producto_id = fields.Many2one(comodel_name='product.product')
         des = fields.Char(string="Descripcion")     
-   
    
