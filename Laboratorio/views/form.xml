@@ -104,7 +104,7 @@
             <div class="oe_button_box" name="button_box">
                 <button name="historial" type="object" string="Historial" class="oe_stat_button" icon="fa-file-text-o"/>
                 <button name="bitacora" type="object" string="Bitacora" class="oe_stat_button" icon="fa-th-large"/>
-                <button name="viñeta" type="object" string="Viñeta" class="oe_stat_button" icon="fa-barcode"/>
+                <button name="vineta" type="action" string="Viñeta" class="oe_stat_button" icon="fa-barcode" onclick="javascript:imprSelec('prueba')"/>
             </div> 
             <h2 style="background-color: #8cb1c2"><b> Optica </b></h2>
             <group name="form" >    
@@ -258,7 +258,26 @@
          </record>
 
 
-
+         <record model="ir.ui.view" id="lomed_form_2">
+            <field name="name">sale_order_tree_lomed</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+        
+                <tree string="Sales Orders" decoration-muted="state=='cancel'">
+                    <field name="name" string="Order Number"/>
+                    <field name="confirmation_date" string="Confirmation Date"/>
+                    <field name="commitment_date" groups="sale.group_sale_order_dates"/>
+                    <field name="expected_date" groups="sale.group_sale_order_dates"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="amount_total" sum="Total Tax Included" widget="monetary"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="invoice_status" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            
+        </field>
+        </record>
 
 <!--Action para prueba-->
 <record model="ir.actions.act_window" id="form_lomed_action">

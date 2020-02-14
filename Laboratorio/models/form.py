@@ -141,7 +141,26 @@ class Formlomed(models.Model):
             text += "</div> </div> "
             r.image = text
             
-             
+    @api.multi
+    def historial(self):
+        self.ensure_one()
+        compose_form = self.env.ref('Laboratorio_optico.lomed_form_2', False)
+        ctx = dict(
+            default_activo_id=self.id,
+        )
+        return {
+            'name': 'new',
+            'type': 'ir.actions.act_window',
+            'view_type': 'tree,form',
+            'view_mode': 'tree,form',
+            'res_model': 'sale.order',
+            'views': [(compose_form.id, 'tree')],
+            'target': 'new',
+            'view_id': 'compose_form.id',
+            'flags': {'action_buttons': True},
+            'context': ctx
+        }
+        
     @api.multi
     def aprobado(self):
         for r in self:
