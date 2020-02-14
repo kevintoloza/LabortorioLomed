@@ -119,7 +119,7 @@ class Formlomed(models.Model):
             text += "<li>"+str('{:%d / %m / %Y %H:%M:%S }'.format(datetime.now()))+"</li>"
             text +="</ul>"
             if not r.barcode:
-                r.barcode = self.env['ir.sequence'].next_by_code('lomed.order')         
+                r.barcode = self.env['ir.sequence'].next_by_code('lomed.order') #Crear una secuencia en odoo        
             text += "<div style=""display:flex;""><div style=""float:left;""><img style='height:70px;widht:200px' src='https://barcode.tec-it.com/barcode.ashx?data="+r.barcode+"%0A&code=&multiplebarcodes=true&translate-esc=true&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0' alt='Barcode Generator TEC-IT'/></div>"   
             text += "<div style=""float:left;""><p style=""font-family:Sans-Serif;font-weight:bold;font-size:20px;"">"+str(variable)+"</p></div></div>"
             text += " </div> <div style=""float:left;margin:5px;""> "
