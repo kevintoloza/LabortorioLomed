@@ -3,6 +3,9 @@ from datetime import datetime, timedelta
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_is_zero, float_compare, DEFAULT_SERVER_DATETIME_FORMAT
 from odoo import SUPERUSER_ID
+import logging
+_logger = logging.getLogger(__name__) 
+
 
 class Formlomed(models.Model):
     _name = 'lomed.formoptica'
@@ -76,6 +79,15 @@ class Formlomed(models.Model):
                                     ,('Mat Propio','Mat Propio')
                                     ,('Otros','Otros')]
                                     , string='Tipo de trabajo ',store=True)  
+    ordenes = fields.One2many(comodel_name='sale.order',string="Ordenes", compute='orden')
+
+    @api.multi
+    @api.depends('ref')
+    def orden(self):
+        for r in self:
+            list = self.env['sale.order'].search([('partner_id','=',r.ref)])
+            r.ordenes = list            
+    
    
     @api.one
     @api.depends('partner_id','name')
@@ -140,18 +152,31 @@ class Formlomed(models.Model):
             text += "<div style=""float:left;""><p style=""font-family:Sans-Serif;font-weight:bold;font-size:20px;"">"+str(variable)+"</p></div></div>"
             text += "</div> </div> "
             r.image = text
+         
+    @api.multi
+    def historial1(self):
+        self.ensure_one()
+        action_ref = self.env.ref('sale.view_quotation_tree')
+        if not action_ref:
+            return False
+        action_data = action_ref.read()[0]
+        _logger.info(action_data)
+        return action_data
+
+#crear al objeto atributo one2many sale.order compute devolverle el listado de las ordenes del cliente 
+
             
     @api.multi
     def historial(self):
         self.ensure_one()
-        compose_form = self.env.ref('Laboratorio_optico.lomed_form_2', False)
+        compose_form = self.env.ref('Laboratorio_optico.lomed_form_tree', False)
         ctx = dict(
             default_activo_id=self.id,
         )
         return {
             'name': 'new',
             'type': 'ir.actions.act_window',
-            'view_type': 'tree,form',
+            'view_type': 'list',
             'view_mode': 'tree,form',
             'res_model': 'sale.order',
             'views': [(compose_form.id, 'tree')],

@@ -105,7 +105,9 @@
                 <button name="historial" type="object" string="Historial" class="oe_stat_button" icon="fa-file-text-o"/>
                 <button name="bitacora" type="object" string="Bitacora" class="oe_stat_button" icon="fa-th-large"/>
                 <button name="vineta" type="action" string="Viñeta" class="oe_stat_button" icon="fa-barcode" onclick="javascript:imprSelec('prueba')"/>
-            </div> 
+                <button name="historial1" type="object" string="Historial" class="oe_stat_button" icon="fa-file-text-o"/>
+                <button class="oe_stat_button" type="action" name="304" icon="fa-usd"/>
+              </div> 
             <h2 style="background-color: #8cb1c2"><b> Optica </b></h2>
             <group name="form" >    
                 <group name="a" >
@@ -117,6 +119,8 @@
                  <group name="b" >  
                     <field name="date1"/> 
                     <field name="tipo_trabaajo"/>
+                    <field name="ordenes"/>
+
                 </group>     
               
             
@@ -258,7 +262,7 @@
          </record>
 
 
-         <record model="ir.ui.view" id="lomed_form_2">
+         <record model="ir.ui.view" id="lomed_form_tree">
             <field name="name">sale_order_tree_lomed</field>
             <field name="model">sale.order</field>
             <field name="arch" type="xml">
